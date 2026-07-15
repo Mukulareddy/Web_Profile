@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mukula Seethi — Computer Vision & AI Engineer</title>
+<meta name="description" content="Mukula Seethi — Senior Computer Vision & AI Engineer. Edge AI, model quantization, OCR/HTR, and LLM inference optimization.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0F14;
+    --bg-elevated:#121822;
+    --bg-card:#151C27;
+    --text-primary:#E8EDF2;
+    --text-muted:#8393A7;
+    --text-faint:#4E5C6E;
+    --accent-signal:#4FD8C4;
+    --accent-power:#F2A65A;
+    --border:#22303F;
+    --border-bright:#2E4053;
+    --font-display:'IBM Plex Mono', monospace;
+    --font-body:'IBM Plex Sans', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--text-primary);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  ::selection{ background:var(--accent-signal); color:var(--bg); }
+
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,15,20,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .nav-mark{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.02em;
+    color:var(--text-primary);
+  }
+  .nav-mark span{ color:var(--accent-signal); }
+  .nav-links{ display:flex; gap:28px; }
+  .nav-links a{
+    font-family:var(--font-display);
+    font-size:13px;
+    color:var(--text-muted);
+    letter-spacing:0.03em;
+    transition:color .2s ease;
+  }
+  .nav-links a:hover{ color:var(--accent-signal); }
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    padding:96px 0 72px;
+    border-bottom:1px solid var(--border);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:56px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:var(--font-display);
+    font-size:13px;
+    color:var(--accent-power);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:8px; height:8px;
+    background:var(--accent-power);
+    border-radius:50%;
+    box-shadow:0 0 0 3px rgba(242,166,90,0.15);
+  }
+  h1.name{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:clamp(32px, 5vw, 52px);
+    line-height:1.1;
+    letter-spacing:-0.01em;
+    margin-bottom:16px;
+  }
+  .hero-desc{
+    color:var(--text-muted);
+    font-size:16.5px;
+    max-width:52ch;
+    margin-bottom:32px;
+  }
+  .hero-cta{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--font-display);
+    font-size:13px;
+    padding:12px 20px;
+    border-radius:2px;
+    border:1px solid var(--border-bright);
+    letter-spacing:0.02em;
+    transition:all .2s ease;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{
+    background:var(--accent-signal);
+    color:#08211D;
+    border-color:var(--accent-signal);
+    font-weight:600;
+  }
+  .btn-primary:hover{ background:#6FE5D3; }
+  .btn-ghost{ color:var(--text-primary); }
+  .btn-ghost:hover{ border-color:var(--accent-signal); color:var(--accent-signal); }
+
+  /* Signature waveform-quantize graphic */
+  .signal-box{
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:24px 20px 18px;
+  }
+  .signal-label{
+    font-family:var(--font-display);
+    font-size:11px;
+    color:var(--text-faint);
+    letter-spacing:0.08em;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:12px;
+  }
+  .signal-label .bits{ color:var(--accent-signal); }
+  svg#waveform{ width:100%; height:auto; display:block; }
+  .signal-caption{
+    font-family:var(--font-display);
+    font-size:11px;
+    color:var(--text-faint);
+    margin-top:10px;
+    text-align:right;
+  }
+
+  /* ---------- Section shell ---------- */
+  section{ padding:72px 0; border-bottom:1px solid var(--border); }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:40px;
+  }
+  .section-tag{
+    font-family:var(--font-display);
+    font-size:12px;
+    color:var(--accent-signal);
+    letter-spacing:0.1em;
+  }
+  h2{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:26px;
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.4fr 0.6fr;
+    gap:48px;
+  }
+  .about-body p{ color:var(--text-muted); font-size:16px; margin-bottom:16px; max-width:62ch; }
+  .metric-stack{ display:flex; flex-direction:column; gap:22px; }
+  .metric{
+    border-left:2px solid var(--accent-power);
+    padding-left:16px;
+  }
+  .metric b{
+    font-family:var(--font-display);
+    font-size:26px;
+    display:block;
+    color:var(--text-primary);
+  }
+  .metric span{ font-size:13px; color:var(--text-muted); }
+
+  /* ---------- Projects ---------- */
+  .project-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  .card{
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:26px 24px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{ border-color:var(--accent-signal); transform:translateY(-2px); }
+  .card-tag{
+    font-family:var(--font-display);
+    font-size:11px;
+    color:var(--accent-power);
+    letter-spacing:0.08em;
+    margin-bottom:10px;
+    display:block;
+  }
+  .card h3{ font-size:18px; margin-bottom:10px; font-weight:600; }
+  .card p{ color:var(--text-muted); font-size:14.5px; margin-bottom:14px; }
+  .card-stack{
+    display:flex; flex-wrap:wrap; gap:8px;
+  }
+  .pill{
+    font-family:var(--font-display);
+    font-size:11px;
+    padding:4px 9px;
+    border:1px solid var(--border-bright);
+    border-radius:2px;
+    color:var(--text-muted);
+  }
+  .card-result{
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px dashed var(--border);
+    font-family:var(--font-display);
+    font-size:13px;
+    color:var(--accent-signal);
+  }
+
+  /* ---------- Skills ---------- */
+  .skill-groups{ display:grid; grid-template-columns:repeat(2,1fr); gap:28px 40px; }
+  .skill-group h4{
+    font-family:var(--font-display);
+    font-size:12px;
+    color:var(--text-faint);
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:12px;
+  }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-size:13.5px;
+    padding:6px 12px;
+    background:var(--bg-elevated);
+    border:1px solid var(--border);
+    border-radius:20px;
+    color:var(--text-primary);
+  }
+
+  /* ---------- Experience timeline ---------- */
+  .timeline{ position:relative; padding-left:28px; }
+  .timeline::before{
+    content:'';
+    position:absolute; left:5px; top:6px; bottom:6px;
+    width:1px;
+    background:linear-gradient(to bottom, var(--accent-signal), var(--border) 90%);
+  }
+  .tl-item{ position:relative; padding-bottom:36px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:'';
+    position:absolute; left:-28px; top:6px;
+    width:11px; height:11px;
+    border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--accent-signal);
+  }
+  .tl-date{
+    font-family:var(--font-display);
+    font-size:12px;
+    color:var(--accent-power);
+    letter-spacing:0.03em;
+    margin-bottom:4px;
+  }
+  .tl-role{ font-size:17px; font-weight:600; }
+  .tl-org{ color:var(--text-muted); font-size:14px; margin-bottom:8px; }
+  .tl-item ul{ list-style:none; padding:0; }
+  .tl-item li{
+    color:var(--text-muted);
+    font-size:14.5px;
+    padding-left:16px;
+    position:relative;
+    margin-bottom:6px;
+  }
+  .tl-item li::before{
+    content:'—';
+    position:absolute; left:0; color:var(--text-faint);
+  }
+
+  /* ---------- Footer / contact ---------- */
+  footer{ padding:80px 0 60px; border-bottom:none; }
+  .contact-inner{ text-align:center; }
+  .contact-inner .section-tag{ display:block; margin-bottom:10px; }
+  footer h2{ font-size:32px; margin-bottom:18px; }
+  footer p.sub{ color:var(--text-muted); max-width:48ch; margin:0 auto 32px; }
+  .contact-links{ display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:52px; }
+  .foot-meta{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-family:var(--font-display);
+    font-size:12px;
+    color:var(--text-faint);
+    border-top:1px solid var(--border);
+    padding-top:24px;
+  }
+
+  @media (max-width:760px){
+    .hero-grid, .about-grid, .project-grid, .skill-groups{ grid-template-columns:1fr; }
+    .nav-links{ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    * { animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-mark">MUKULA<span>.</span>SEETHI</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Available for select roles</div>
+      <h1 class="name">Mukula Seethi</h1>
+      <p class="hero-desc">
+        Senior Computer Vision &amp; AI Engineer. I take deep learning models from research notebooks
+        to production on hardware that doesn't have room for slack — on-sensor chips, ARM edge devices,
+        and confidential compute infrastructure.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#projects">View projects</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="signal-box">
+      <div class="signal-label"><span>MODEL_PRECISION.trace</span><span class="bits">FP32 → INT8</span></div>
+      <svg id="waveform" viewBox="0 0 400 140" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,70 C20,20 40,20 60,70 S100,120 120,70 S160,20 180,70 S220,120 240,70"
+              fill="none" stroke="#8393A7" stroke-width="1.5" opacity="0.55"/>
+        <polyline points="240,70 250,70 250,40 270,40 270,95 290,95 290,55 310,55 310,85 330,85 330,45 350,45 350,90 370,90 370,70 400,70"
+              fill="none" stroke="#4FD8C4" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="243" y1="15" x2="243" y2="125" stroke="#22303F" stroke-width="1" stroke-dasharray="3 4"/>
+      </svg>
+      <div class="signal-caption">50% smaller · accuracy retained</div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-body">
+      <div class="section-head"><span class="section-tag">01 / ABOUT</span></div>
+      <p>
+        Over seven years I've moved between research and the constraints of real hardware — quantizing
+        object detection models to fit on Sony's IMX500 on-sensor chip, rebuilding OCR/HTR pipelines that
+        cut insurance claim turnaround from a week to a few hours, and most recently optimizing LLM
+        inference kernels for ARM's Scalable Vector Extension inside confidential compute environments.
+      </p>
+      <p>
+        I'm most useful on problems where a model has to work under a real constraint — memory, latency,
+        power, or trust boundary — not just in a benchmark.
+      </p>
+    </div>
+    <div class="metric-stack">
+      <div class="metric"><b>4–5×</b><span>inference speedup, ARM SVE kernels</span></div>
+      <div class="metric"><b>50%</b><span>model size reduction, on-sensor deployment</span></div>
+      <div class="metric"><b>7+ yrs</b><span>research → production, edge to enterprise</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head"><span class="section-tag">02 / PROJECTS</span><h2>Selected work</h2></div>
+    <div class="project-grid">
+
+      <div class="card">
+        <span class="card-tag">EDGE AI · ON-SENSOR</span>
+        <h3>Quantized CV models for the IMX500 chip</h3>
+        <p>Built and quantized YOLO, MobileNet, and MnasNet models to run directly on Sony's on-sensor
+        chip, using TFLite Converter, MCT, and LogPTQ for post-training quantization.</p>
+        <div class="card-stack">
+          <span class="pill">TensorFlow Lite</span><span class="pill">MCT</span><span class="pill">LogPTQ</span>
+        </div>
+        <div class="card-result">→ 50% smaller model, accuracy maintained</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">OCR / HTR · INSURANCE</span>
+        <h3>Quick Photo Claims pipeline</h3>
+        <p>Designed and shipped a web + mobile system automating insurance claim photo processing,
+        with an OCR/HTR pipeline for handwritten and printed document extraction.</p>
+        <div class="card-stack">
+          <span class="pill">OCR/HTR</span><span class="pill">Deep Learning</span><span class="pill">Web + Mobile</span>
+        </div>
+        <div class="card-result">→ Claim resolution: a week → a few hours</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">ARM · LLM INFERENCE</span>
+        <h3>SVE kernel optimization for LLM workloads</h3>
+        <p>Implemented ARM Scalable Vector Extension optimizations for deep learning kernels inside
+        ARM CCA confidential compute environments, tuned with cross-functional hardware teams.</p>
+        <div class="card-stack">
+          <span class="pill">ARM SVE</span><span class="pill">ARM CCA</span><span class="pill">Azure DevOps</span>
+        </div>
+        <div class="card-result">→ 4–5× inference performance vs. baseline</div>
+      </div>
+
+      <div class="card">
+        <span class="card-tag">FRAMEWORK MIGRATION</span>
+        <h3>TF1 → TF2 migration &amp; YOLOv5 rebuild</h3>
+        <p>Migrated model architectures to TF2 to unblock an internal cloud training platform, and
+        rebuilt a PyTorch YOLOv5 pipeline natively in TensorFlow for in-house training.</p>
+        <div class="card-stack">
+          <span class="pill">TensorFlow 2</span><span class="pill">PyTorch</span><span class="pill">YOLOv5</span>
+        </div>
+        <div class="card-result">→ Unblocked in-house training for full CV team</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head"><span class="section-tag">03 / SKILLS</span><h2>Toolbox</h2></div>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <h4>AI &amp; Machine Learning</h4>
+        <div class="chip-row">
+          <span class="chip">Computer Vision</span><span class="chip">Object Detection</span>
+          <span class="chip">OCR / HTR</span><span class="chip">Model Quantization</span>
+          <span class="chip">Edge AI</span><span class="chip">LLM Optimization</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Frameworks &amp; Libraries</h4>
+        <div class="chip-row">
+          <span class="chip">TensorFlow</span><span class="chip">PyTorch</span>
+          <span class="chip">TensorFlow Lite</span><span class="chip">OpenCV</span>
+          <span class="chip">ONNX</span><span class="chip">Flask</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Infrastructure &amp; DevOps</h4>
+        <div class="chip-row">
+          <span class="chip">Azure DevOps</span><span class="chip">CI/CD</span>
+          <span class="chip">Docker</span><span class="chip">Git</span>
+          <span class="chip">ARM SVE</span><span class="chip">ARM CCA</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Languages</h4>
+        <div class="chip-row">
+          <span class="chip">Python</span><span class="chip">C++</span>
+          <span class="chip">R</span><span class="chip">SQL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head"><span class="section-tag">04 / EXPERIENCE</span><h2>Timeline</h2></div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-date">02/2024 — 04/2026</div>
+        <div class="tl-role">Senior AI Software Engineer</div>
+        <div class="tl-org">Fujitsu Research India Pvt. Ltd. · Bangalore</div>
+        <ul>
+          <li>Built and optimized LLM workflows and inference pipelines for enterprise AI</li>
+          <li>Implemented ARM SVE optimizations, 4–5× inference performance vs. baseline</li>
+          <li>Contributed to ARM CCA confidential compute security initiatives</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">11/2021 — 01/2024</div>
+        <div class="tl-role">AI Engineer</div>
+        <div class="tl-org">Sony India Pvt Ltd · Bangalore</div>
+        <ul>
+          <li>Quantized CV models for the IMX500 on-sensor chip, 50% smaller, accuracy retained</li>
+          <li>Migrated model architectures from TF1 to TF2 for the full CV team</li>
+          <li>Rebuilt the PyTorch YOLOv5 pipeline natively in TensorFlow</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">01/2020 — 10/2021</div>
+        <div class="tl-role">Computer Vision Engineer</div>
+        <div class="tl-org">Allstate India Pvt Ltd · Bangalore</div>
+        <ul>
+          <li>Shipped Quick Photo Claims, automating insurance claim photo processing end-to-end</li>
+          <li>Built OCR/HTR pipelines, cutting claim resolution from a week to hours</li>
+          <li>Mentored engineers in Python, ML, and computer vision</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">05/2019 — 10/2019</div>
+        <div class="tl-role">Data Scientist</div>
+        <div class="tl-org">AIDroid · Hyderabad</div>
+        <ul>
+          <li>Built dashcam CV models with MobileNet and Caffe-based classifiers</li>
+          <li>Built a real-time face recognition system using FaceNet</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">06/2018 — 04/2019</div>
+        <div class="tl-role">Data Scientist</div>
+        <div class="tl-org">Cognerium Robotic Labs · Hyderabad</div>
+        <ul>
+          <li>Built fraud detection models from transaction data and feature engineering</li>
+          <li>Presented insights via Matplotlib, Seaborn, and Plotly</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap contact-inner">
+    <span class="section-tag">05 / CONTACT</span>
+    <h2>Let's build something that has to survive contact with real hardware.</h2>
+    <p class="sub">Open to senior computer vision, edge AI, and applied ML roles.</p>
+    <div class="contact-links">
+      <a class="btn btn-primary" href="mailto:mukulareddy@gmail.com">Email me</a>
+      <a class="btn btn-ghost" href="https://linkedin.com/in/mukula-seethi-b08622117" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+    <div class="foot-meta">
+      <span>Hamburg, Germany</span>
+      <span>© 2026 Mukula Seethi</span>
+      <span>Built with vanilla HTML/CSS/JS</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
